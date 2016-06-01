@@ -1,0 +1,11 @@
+#忽略数据库配置文件
+/Application/Common/Conf/config.php
+
+#忽略Runtime文件
+/Application/Runtime/*
+
+#忽略APICloud的metadata文件夹
+/APICloud/.metadata/*
+
+#忽略开发环境文件
+/.idea/*
