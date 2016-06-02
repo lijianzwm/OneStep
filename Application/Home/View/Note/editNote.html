@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑笔记</title>
+
+    <!-- include libraries(jQuery, bootstrap) -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+
+    <link rel="stylesheet" href="__PUBLIC__/date/jquery-ui.css">
+    <script src="__PUBLIC__/date/jquery-ui.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="text-left">
+        <h3>{$date}</h3>
+    </div>
+    <div id="summernote">{$note.content}</div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-success lead" onclick="commit()">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script src="__PUBLIC__/js/dialog.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+
+        $('#summernote').summernote({
+            height: 500,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true                  // set focus to editable area after initializing summernote
+        });
+    });
+
+    function commit(){
+        date = '{$date}';
+        content = $('#summernote').summernote('code');
+        $.ajax({
+            url: "{:U('Note/editNoteHandler')}",
+            data: {
+                date:date,
+                content: content
+            },
+            type: 'post',
+            cache: false,
+            dataType: 'json',
+            success: function (data) {
+                if (data.error_code) {
+                    dialog.error(data.msg);
+                } else {
+                    dialog.hint(data.msg);
+                }
+            },
+            error: function () {
+                dialog.error("ajax请求失败!");
+            }
+        });
+
+    }
+
+</script>
+</body>
+</html>

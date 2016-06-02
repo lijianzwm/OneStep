@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>笔记列表</title>
+</head>
+<body>
+<div class="container">
+    <table class="table">
+        <tbody>
+        <tr>
+            <td></td>
+            <foreach name="noteList" item="note">
+                <td>{$note.title}</td>
+                <td>
+                    <a href="{:U('Note/modifyNote', array( noteid=> $note['id']))}">修改</a></td>
+            </foreach>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
