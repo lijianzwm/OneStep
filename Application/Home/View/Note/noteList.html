@@ -6,18 +6,14 @@
 </head>
 <body>
 <div class="container">
-    <table class="table">
-        <tbody>
-        <tr>
-            <td></td>
-            <foreach name="noteList" item="note">
-                <td>{$note.title}</td>
-                <td>
-                    <a href="{:U('Note/modifyNote', array( noteid=> $note['id']))}">修改</a></td>
-            </foreach>
-        </tr>
-        </tbody>
-    </table>
+    <div class="list-group">
+        <foreach name="noteList" item="note">
+            <a href="{:U('Note/modifyNote', array( noteid=> $note['id']))}" class="list-group-item">
+                <h4 class="list-group-item-heading">{$note.date}</h4>
+                <p class="list-group-item-text">{$note.content}</p>
+            </a>
+        </foreach>
+    </div>
 </div>
 </body>
 </html>

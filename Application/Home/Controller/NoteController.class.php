@@ -8,7 +8,6 @@
 
 namespace Home\Controller;
 
-
 use Common\Service\DateService;
 
 class NoteController extends CommonController{
@@ -17,16 +16,19 @@ class NoteController extends CommonController{
         $date = DateService::getTodayDate();
         $note = M("note")->where("userid='$userid' and date='$date'")->find();
         if( $note ){
+            $note['content'] = html_entity_decode($note['content']);
             $this->assign("note", $note);
         }
-        $this->assign("date", $date);
         $this->display("editNote");
     }
 
     public function noteList(){
         $userid = session("user")['id'];
         $todayDate = DateService::getTodayDate();
-        $noteList = M("note")->where("userid='$userid' and date<'$todayDate'")->find();
+        $noteList = M("note")->where("userid='$userid' and date<'$todayDate'")->select();
+        for( $i = 0; $i < count($noteList); $i++ ){
+            $noteList[$i]['content'] = html_entity_decode($noteList[$i]['content']);
+        }
         if( $noteList ){
             $this->assign("noteList", $noteList);
         }
@@ -37,6 +39,7 @@ class NoteController extends CommonController{
         $noteid = I("noteid");
         $note = M("note")->where("id='$noteid'")->find();
         if( $note ){
+            $note['content'] = html_entity_decode($note['content']);
             $this->assign("note", $note);
             $this->display("editNote");
         }else{
@@ -77,7 +80,7 @@ class NoteController extends CommonController{
         $sql .= " )";
         $notes = M()->query($sql);
         foreach( $notes as $note ){
-            $content .= $note['content'];
+            $content .= html_entity_decode($note['content'])."<br>";
         }
         $this->assign("content", $content);
         $this->display();
