@@ -17,8 +17,11 @@ class NoteController extends CommonController{
         $note = M("note")->where("userid='$userid' and date='$date'")->find();
         if( $note ){
             $note['content'] = html_entity_decode($note['content']);
-            $this->assign("note", $note);
+        }else{
+            $note['date'] = $date;
+            $note['userid'] = session("user")['id'];
         }
+        $this->assign("note", $note);
         $this->display("editNote");
     }
 
