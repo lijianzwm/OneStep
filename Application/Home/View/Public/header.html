@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>OneStepNote</title>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation"><a href="{:U('/Home/Note/todayNote')}">记笔记</a></li>
+                    <li role="presentation"><a href="{:U('/Home/Note/review')}">复习</a></li>
+                    <li role="presentation"><a href="{:U('/Home/Note/modifyNote')}">修改</a></li>
+                    <if condition="$Think.session.user neq null">
+                        <li role="presentation"><a href="{:U('/Home/User/logout')}">退出</a></li>
+                    </if>
+                </ul>
+            </nav>
+            <div onclick="toIndex()"><h1>OneStepNote</h1></div>
+        </div>
+        <hr class="featurette-divider">
+    </div>
+</div>
+
+<script type="text/javascript">
+    function toIndex(){
+        window.location.href="{:U('/Home/Index')}";
+    }
+</script>
+</body>
+</html>
