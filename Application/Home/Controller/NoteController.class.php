@@ -76,7 +76,7 @@ class NoteController extends CommonController{
         $table = C("DB_PREFIX") . "note";
         $userid = session("user")['id'];
         $content = "";
-        $sql = "select * from $table where date in ( ";
+        $sql = "select * from $table where userid='$userid' and date in ( ";
         foreach( $dates as $date ){
             $sql .= "'".$date."', ";
         }
