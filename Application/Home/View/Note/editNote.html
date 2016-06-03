@@ -21,6 +21,7 @@
     <div class="text-left">
         <h3>{$note.date}</h3>
         <input type="hidden" id="date" value="{$note.date}"/>
+        <input type="hidden" id="userid" value="{$note.userid}"/>
     </div>
     <div id="summernote">{$note.content}</div>
     <div class="row">
@@ -51,12 +52,14 @@
 
     function commit(){
         date = $("#date").val();
+        userid = $("#userid").val();
         content = $('#summernote').summernote('code');
         $.ajax({
             url: "{:U('Note/editNoteHandler')}",
             data: {
                 date:date,
-                content: content
+                content: content,
+                userid: userid
             },
             type: 'post',
             cache: false,
