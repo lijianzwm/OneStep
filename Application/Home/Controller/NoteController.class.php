@@ -55,7 +55,6 @@ class NoteController extends CommonController{
         $content = I("content");
         $userid = I("userid");
         $note = M("note")->where("date='$date' and userid='$userid'")->find();
-        dump($note);
         if( $note ){
             $note['content'] = $content;
             M("note")->save($note);
